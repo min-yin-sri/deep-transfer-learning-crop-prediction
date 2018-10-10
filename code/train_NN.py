@@ -8,12 +8,12 @@ from util import Progbar
 from sklearn.metrics import r2_score
 import getpass
 from oauth2client.service_account import ServiceAccountCredentials
-from GP import GaussianProcess
+#from GP import GaussianProcess
 from scipy.stats.stats import pearsonr  
 from constants import GBUCKET, DATASETS
 
 import gspread
-from spreadsheet_auth import get_credentials
+#from spreadsheet_auth import get_credentials
 
 t = time.localtime()
 timeString  = time.strftime("%Y-%m-%d_%H-%M-%S", t)
@@ -114,7 +114,7 @@ def end_and_output_results(worksheet, train_RMSE_min, train_R2_max, dev_RMSE_min
 def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restrict_iterations = None, rows_to_add_to_google_doc = None, permuted_band = -1):
     input_data_dir = os.path.join(GBUCKET, DATASETS, directory)
     train_name = "train_{}_{}_{}_{}_{}_{}".format(CNN_or_LSTM,config.lr, config.drop_out, config.train_step, timeString, sys.argv[1].replace('/','_'))
-    train_dir = os.path.expanduser(os.path.join('~/bucket2/nnet_data', getpass.getuser(), train_name))
+    train_dir = os.path.expanduser(os.path.join('~/bucket3/nnet_data', getpass.getuser(), train_name))
     output_data_dir = train_dir
     os.mkdir(train_dir)
     train_logfile = os.path.join(train_dir, train_name + '.log')

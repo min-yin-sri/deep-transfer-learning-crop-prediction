@@ -5,8 +5,8 @@ from unidecode import unidecode
 import argparse
 import os.path
 
-BUCKET = 'es262-yields-team'
-BUCKET_VM_REL = os.path.expanduser('~/bucket2/')
+BUCKET = 'wm-crop-yield-sri-2018'
+#BUCKET_VM_REL = os.path.expanduser('~/bucket2/')
 
 IMG_COLLECTIONS = ['MODIS/MOD09A1', 'MODIS/006/MYD11A2', 'MODIS/051/MCD12Q1']
 IMG_START_DATES = ['2000-02-24', '2002-07-31', '2001-01-01']
@@ -22,10 +22,10 @@ USA_FIPS_CODES = {
 }
 
 
-REGIONS = ['argentina', 'brazil', 'india', 'usa']
-BOUNDARY_FILTERS = [[-74, -52, -54, -21], [-34, -34, -74, 6], [68, 6, 97.5, 37.2], [-80, 32, -104.5, 49]]
+REGIONS = ['argentina', 'brazil', 'india', 'usa', 'sudan']
+BOUNDARY_FILTERS = [[-74, -52, -54, -21], [-34, -34, -74, 6], [68, 6, 97.5, 37.2], [-80, 32, -104.5, 49], [22, 3, 37, 22]]
 FTR_COLLECTIONS = ['users/nikhilarundesai/cultivos_maiz_sembrada_1314', 'users/nikhilarundesai/BRMEE250GC_SIR',
-                   'users/nikhilarundesai/India_Districts', 'users/nikhilarundesai/US_Counties']
+                   'users/nikhilarundesai/India_Districts', 'users/nikhilarundesai/US_Counties', 'users/myinster/Sudan_State_Poly']
 
 CLEAN_NAME = lambda r, l: unidecode(r.get('properties').get(l)).lower().translate(None, "'()/&-")
 GET_FIPS = lambda r, l: USA_FIPS_CODES[r.get('properties').get(l)].lower()
@@ -33,13 +33,15 @@ FTR_KEY_FNS = [
     lambda region: CLEAN_NAME(region, 'partido') + "-" + CLEAN_NAME(region, 'provincia'),
     lambda region: CLEAN_NAME(region, 'NM_MESO') + "-brasil",
     lambda region: CLEAN_NAME(region, 'DISTRICT') + "-" + CLEAN_NAME(region, 'ST_NM'),
-    lambda region: CLEAN_NAME(region, 'NAME') + "-" + GET_FIPS(region, 'STATEFP')
+    lambda region: CLEAN_NAME(region, 'NAME') + "-" + GET_FIPS(region, 'STATEFP'),
+    lambda region: CLEAN_NAME(region, 'admin1Name') + "-sudan",
 ]
 FTR_FILTER_FNS = [
     lambda region: True,
     lambda region: True,
     lambda region: True,
-    lambda region: region.get('properties').get('STATEFP') in USA_FIPS_CODES
+    lambda region: region.get('properties').get('STATEFP') in USA_FIPS_CODES,
+    lambda region: True,
 ]
 
 USAGE_MESSAGE = 'Usage: python pull_modis.py <' + ', '.join(IMG_COLLECTION_CODES) + '> <' + \

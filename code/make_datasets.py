@@ -88,8 +88,8 @@ def remove_months_outside_harvest(f_data, beginning_offset, season_len, harv_beg
     dataset_year_end = 16
     beginning_year = harv_begin - dataset_year_begin
     assert(len(trimmed_to_season_end) == 14) #fourteen years from 2003 to 2016
-    total_number_of_years = min(harv_end, dataset_year_end) - beginning_year 
-    return trimmed_to_season_end[ beginning_year : total_number_of_years + 1]
+    total_number_of_years = min(harv_end, dataset_year_end) - harv_begin + 1 
+    return trimmed_to_season_end[ beginning_year : beginning_year+total_number_of_years]
 
 def sort_harvest_year_strings(years):
     return sorted(years, key=lambda year_str : int(year_str)) #chronological order
@@ -103,6 +103,8 @@ def calculate_offset(crop, country):
     elif crop == 'soybeans' and country.lower() == 'brazil':
         #soybeans is September to April http://www.soybeansandcorn.com/Brazil-Crop-Cycles
         return 3, 32
+    else:
+        return 6, 32
 
 def make_files_set_test(hist_dir, crop, country, harv_begin, harv_end, season_frac, test_region_1s, test_years, test_pool_frac, filter_regions, filter_years, exclude, use_skip_file, verbose, train_fraction_keep, dev_frac, scale_factor):
     harvest_years = [(2000+i) for i in range(harv_begin, harv_end + 1)]
@@ -173,6 +175,8 @@ def make_files_set_test(hist_dir, crop, country, harv_begin, harv_end, season_fr
         season_len = int(season_frac*season_len)
         hist_data = np.load(join(hist_dir, filename))
         truncated_f_data_by_year = remove_months_outside_harvest(hist_data, beginning_offset, season_len, harv_begin, harv_end)
+	print ('truncated_f_data_by_year:' + str(len(truncated_f_data_by_year)))
+	print ('harvest_years:' + str(len(harvest_years)))
         assert len(truncated_f_data_by_year) == len(harvest_years)
         ndvi_path = join(hist_dir, '{}ndvi.npy'.format(filename[:-len(HIST_SUFFIX)]))
         if isfile(ndvi_path):
