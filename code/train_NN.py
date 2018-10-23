@@ -107,7 +107,11 @@ def end_and_output_results(worksheet, train_RMSE_min, train_R2_max, dev_RMSE_min
     test_R2_to_append = ['best test_R2_max',test_R2_max]
     #worksheet_append_wrapper(worksheet, test_RMSE_to_append)
     #worksheet_append_wrapper(worksheet, test_R2_to_append)
-
+    logging.info ('best test_RMSE_min %f', test_RMSE_min)
+    logging.info ('best test_R2_max %f', test_RS_max)
+    print 'best test_RMSE_min', test_RMSE_min
+    print 'best test_R2_max',test_R2_max
+ 
     return test_RMSE_min, test_R2_max
 
 
