@@ -118,7 +118,8 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
     output_data_dir = train_dir
     os.mkdir(train_dir)
     train_logfile = os.path.join(train_dir, train_name + '.log')
-    logging.basicConfig(filename=train_logfile,level=logging.ERROR)
+    #logging.basicConfig(filename=train_logfile,level=logging.ERROR)
+    logging.basicConfig(filename=train_logfile,level=logging.DEBUG)
     model.writer = tf.summary.FileWriter(train_dir, graph=tf.get_default_graph())
 
     #google drive set-up
