@@ -231,7 +231,6 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
                 #worksheet_append_wrapper(worksheet, line_to_append)
                 
                 prev_train_loss = train_loss
-                """ comment out dev set for now
                 #print scores on dev set
                 pred = []
                 real = []
@@ -279,8 +278,7 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
                     line_to_append.append('new dev RMSE min')
 
                 #worksheet_append_wrapper(worksheet, line_to_append)
-                """
-
+    
                 #print scores on test set
                 test_pred = []
                 test_real = []
