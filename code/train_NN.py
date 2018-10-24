@@ -111,10 +111,14 @@ def end_and_output_results(worksheet, train_RMSE_min, train_R2_max, dev_RMSE_min
     logging.info ('best train_R2_max %f', train_R2_max)
     logging.info ('best test_RMSE_min %f', test_RMSE_min)
     logging.info ('best test_R2_max %f', test_R2_max)
+    logging.info ('best dev_RMSE_min %f', dev_RMSE_min)
+    logging.info ('best dev_R2_max %f', dev_R2_max)
     print 'best train_RMSE_min', train_RMSE_min
     print 'best train_R2_max', train_R2_max
     print 'best test_RMSE_min', test_RMSE_min
     print 'best test_R2_max',test_R2_max
+    print 'best dev_RMSE_min', dev_RMSE_min
+    print 'best dev_R2_max', dev_R2_max
  
     return test_RMSE_min, test_R2_max
 
