@@ -248,8 +248,6 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
                 pred = []
                 real = []
                 dev_features = []
-                dev_data_file = train_data_file
-                dev_labels_file = dev_labels_file
                 for batch in file_generator(dev_data_file, dev_labels_file, config.B, permuted_band = permuted_band):
                     pred_temp, feature = sess.run([model.pred, model.feature], feed_dict={
                         model.x: batch[0],
