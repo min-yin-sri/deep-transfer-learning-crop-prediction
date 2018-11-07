@@ -157,10 +157,14 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
     # load data to memory
     train_data_file = os.path.join(input_data_dir, 'train_hists.npz') 
     train_labels_file = os.path.join(input_data_dir, 'train_yields.npz')
-    dev_data_file = os.path.join(input_data_dir, 'dev_hists.npz') 
-    dev_labels_file = os.path.join(input_data_dir, 'dev_yields.npz')
-    test_data_file =  os.path.join(input_data_dir, 'test_hists.npz')
-    test_labels_file = os.path.join(input_data_dir, 'test_yields.npz')
+    #dev_data_file = os.path.join(input_data_dir, 'dev_hists.npz') 
+    #dev_labels_file = os.path.join(input_data_dir, 'dev_yields.npz')
+    dev_data_file = os.path.join(input_data_dir, 'train_hists.npz') 
+    dev_labels_file = os.path.join(input_data_dir, 'train_yields.npz')
+    #test_data_file =  os.path.join(input_data_dir, 'test_hists.npz')
+    #test_labels_file = os.path.join(input_data_dir, 'test_yields.npz')
+    test_data_file = os.path.join(input_data_dir, 'train_hists.npz')
+    test_label_file = os.path.join(input_data_dir, 'train_yields.npz')
     
     summary_train_loss = []
     summary_eval_loss = []
@@ -248,9 +252,9 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
                 pred = []
                 real = []
                 dev_features = []
-                dev_data_file = train_data_file
-                dev_label_file = train_labels_file
-                for batch in file_generator(train_data_file, train_labels_file, config.B, permuted_band = permuted_band):
+                #dev_data_file = train_data_file
+                #dev_label_file = train_labels_file
+                for batch in file_generator(dev_data_file, dev_labels_file, config.B, permuted_band = permuted_band):
                     pred_temp, feature = sess.run([model.pred, model.feature], feed_dict={
                         model.x: batch[0],
                         model.y: batch[1],
@@ -298,8 +302,8 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
                 test_pred = []
                 test_real = []
                 test_features = []
-                test_data_file = train_data_file
-                test_label_file = train_labels_file
+                #test_data_file = train_data_file
+                #test_label_file = train_labels_file
                 # Use training set to validate for now
                 #for batch in file_generator(train_data_file, train_labels_file, config.B, permuted_band = permuted_band):
                 for batch in file_generator(test_data_file, test_labels_file, config.B, permuted_band = permuted_band):
