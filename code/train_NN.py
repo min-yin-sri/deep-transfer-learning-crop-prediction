@@ -157,14 +157,14 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
     # load data to memory
     train_data_file = os.path.join(input_data_dir, 'train_hists.npz') 
     train_labels_file = os.path.join(input_data_dir, 'train_yields.npz')
-    #dev_data_file = os.path.join(input_data_dir, 'dev_hists.npz') 
-    #dev_labels_file = os.path.join(input_data_dir, 'dev_yields.npz')
-    dev_data_file = os.path.join(input_data_dir, 'train_hists.npz') 
-    dev_labels_file = os.path.join(input_data_dir, 'train_yields.npz')
-    #test_data_file =  os.path.join(input_data_dir, 'test_hists.npz')
-    #test_labels_file = os.path.join(input_data_dir, 'test_yields.npz')
-    test_data_file = os.path.join(input_data_dir, 'train_hists.npz')
-    test_labels_file = os.path.join(input_data_dir, 'train_yields.npz')
+    dev_data_file = os.path.join(input_data_dir, 'dev_hists.npz') 
+    dev_labels_file = os.path.join(input_data_dir, 'dev_yields.npz')
+    #dev_data_file = os.path.join(input_data_dir, 'train_hists.npz') 
+    #dev_labels_file = os.path.join(input_data_dir, 'train_yields.npz')
+    test_data_file =  os.path.join(input_data_dir, 'test_hists.npz')
+    test_labels_file = os.path.join(input_data_dir, 'test_yields.npz')
+    #test_data_file = os.path.join(input_data_dir, 'train_hists.npz')
+    #test_labels_file = os.path.join(input_data_dir, 'train_yields.npz')
     
     summary_train_loss = []
     summary_eval_loss = []
