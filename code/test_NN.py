@@ -8,7 +8,7 @@ from util import Progbar
 from sklearn.metrics import r2_score
 import getpass
 from oauth2client.service_account import ServiceAccountCredentials
-from GP import GaussianProcess
+#from GP import GaussianProcess
 from scipy.stats.stats import pearsonr   
 from itertools import compress
 import gspread
