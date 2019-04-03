@@ -7,9 +7,10 @@ import logging
 from util import Progbar
 from sklearn.metrics import r2_score
 import getpass
+import pdb
 from oauth2client.service_account import ServiceAccountCredentials
 #from GP import GaussianProcess
-from scipy.stats.stats import pearsonr  
+from scipy.stats.stats import pearsonr
 from constants import GBUCKET, DATASETS
 
 #import gspread
@@ -41,7 +42,8 @@ def file_generator(inputs_data_path, labels_data_path, batch_size, add_data_path
     if add_labels_path is not None:
         labels_data_2 = np.load(add_labels_path)['data']
         labels_data = np.append(labels_data, labels_data_2, axis = 0)
-    
+
+    #pdb.set_trace()
     while(len(inputs_data) < batch_size):
         #need to pad
         inputs_data = np.append(inputs_data, inputs_data, axis = 0)
@@ -49,7 +51,7 @@ def file_generator(inputs_data_path, labels_data_path, batch_size, add_data_path
         print "appended to pad"
     for idx in xrange(len(inputs_data)):
        current_batch_inputs.append(inputs_data[idx])
-       current_batch_labels.append(labels_data[idx]) 
+       current_batch_labels.append(labels_data[idx])
        if len(current_batch_labels) == batch_size:
             yield current_batch_inputs, current_batch_labels
             current_batch_inputs = []
@@ -107,30 +109,17 @@ def end_and_output_results(worksheet, train_RMSE_min, train_R2_max, dev_RMSE_min
     test_R2_to_append = ['best test_R2_max',test_R2_max]
     #worksheet_append_wrapper(worksheet, test_RMSE_to_append)
     #worksheet_append_wrapper(worksheet, test_R2_to_append)
-    logging.info ('best train_RMSE_min %f', train_RMSE_min)
-    logging.info ('best train_R2_max %f', train_R2_max)
-    logging.info ('best test_RMSE_min %f', test_RMSE_min)
-    logging.info ('best test_R2_max %f', test_R2_max)
-    logging.info ('best dev_RMSE_min %f', dev_RMSE_min)
-    logging.info ('best dev_R2_max %f', dev_R2_max)
-    print 'best train_RMSE_min', train_RMSE_min
-    print 'best train_R2_max', train_R2_max
-    print 'best test_RMSE_min', test_RMSE_min
-    print 'best test_R2_max',test_R2_max
-    print 'best dev_RMSE_min', dev_RMSE_min
-    print 'best dev_R2_max', dev_R2_max
- 
+
     return test_RMSE_min, test_R2_max
 
 
 def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restrict_iterations = None, rows_to_add_to_google_doc = None, permuted_band = -1):
     input_data_dir = os.path.join(GBUCKET, DATASETS, directory)
-    train_name = "train_{}_{}_{}_{}_{}_{}".format(CNN_or_LSTM,config.lr, config.drop_out, config.train_step, timeString, sys.argv[1].replace('/','_'))
-    train_dir = os.path.expanduser(os.path.join('~/bucket3/nnet_data', getpass.getuser(), train_name))
+    train_name = "train_{}_{}_{}_{}_{}_{}".format(CNN_or_LSTM, config.lr, config.drop_out, config.train_step, timeString, sys.argv[1].replace('/','_'))
+    train_dir = os.path.expanduser(os.path.join('/Users/burakuzkent/deep-transfer-learning-crop-prediction/es262-yield-africa/nnet_data', getpass.getuser(), train_name))
     output_data_dir = train_dir
     os.mkdir(train_dir)
     train_logfile = os.path.join(train_dir, train_name + '.log')
-    #logging.basicConfig(filename=train_logfile,level=logging.ERROR)
     logging.basicConfig(filename=train_logfile,level=logging.DEBUG)
     model.writer = tf.summary.FileWriter(train_dir, graph=tf.get_default_graph())
 
@@ -155,38 +144,34 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
     scores_file, sess_file, train_predictions_file, test_predictions_file, dev_predictions_file, model_w_file, model_b_file, train_feature_file, test_feature_file, dev_feature_file = create_save_files(train_dir, train_name)
 
     # load data to memory
-    train_data_file = os.path.join(input_data_dir, 'train_hists.npz') 
+    train_data_file = os.path.join(input_data_dir, 'train_hists.npz')
     train_labels_file = os.path.join(input_data_dir, 'train_yields.npz')
-    dev_data_file = os.path.join(input_data_dir, 'dev_hists.npz') 
+    dev_data_file = os.path.join(input_data_dir, 'dev_hists.npz')
     dev_labels_file = os.path.join(input_data_dir, 'dev_yields.npz')
-    #dev_data_file = os.path.join(input_data_dir, 'train_hists.npz') 
-    #dev_labels_file = os.path.join(input_data_dir, 'train_yields.npz')
     test_data_file =  os.path.join(input_data_dir, 'test_hists.npz')
     test_labels_file = os.path.join(input_data_dir, 'test_yields.npz')
-    #test_data_file = os.path.join(input_data_dir, 'train_hists.npz')
-    #test_labels_file = os.path.join(input_data_dir, 'train_yields.npz')
-    
+
     summary_train_loss = []
     summary_eval_loss = []
     summary_RMSE = []
     summary_ME = []
     summary_R2 = []
-    
+
     train_RMSE_min = 1e10
     test_RMSE_min = 1e10
     dev_RMSE_min = 1e10
-    
+
     train_R2_max = 0
     test_R2_max = 0
     dev_R2_max = 0
-    
+
     prev_train_loss = 1e10
 
     try:
         count = 0
         target = 25
         prog = Progbar(target=target)
-        
+
         #TRAINING PORTION
         for i in range(config.train_step):
             if i==3000:
@@ -240,27 +225,25 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
                     time.sleep(3)
                     worksheet = authorize_gspread(output_google_doc, worksheet_name)
                 """
-                 
+
                 print 'Train set','test ME',ME, 'train RMSE',RMSE,'train R2',sklearn_r2,'train RMSE_min', train_RMSE_min,'train R2 for min RMSE',train_R2_max
                 logging.info('Train set train ME %f train RMSE %f train R2 %f train RMSE min %f train_R2_for_min_RMSE %f',ME, RMSE, sklearn_r2, train_RMSE_min,train_R2_max)
-                
+
                 line_to_append = ['Train',str(ME), str(RMSE), str(sklearn_r2), str(train_RMSE_min), str(train_R2_max), str(correlation_coeff[0]), str(correlation_coeff[1]), str(train_loss)]
                 #worksheet_append_wrapper(worksheet, line_to_append)
-                
+
                 prev_train_loss = train_loss
                 #print scores on dev set
                 pred = []
                 real = []
                 dev_features = []
-                #dev_data_file = train_data_file
-                #dev_label_file = train_labels_file
                 for batch in file_generator(dev_data_file, dev_labels_file, config.B, permuted_band = permuted_band):
                     pred_temp, feature = sess.run([model.pred, model.feature], feed_dict={
                         model.x: batch[0],
                         model.y: batch[1],
                         model.keep_prob: 1
                         })
-                    pred.append(pred_temp)  
+                    pred.append(pred_temp)
                     dev_features.append(feature)
                 pred=np.concatenate(pred)
                 dev_features = np.concatenate(dev_features)
@@ -271,7 +254,7 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
                 ME=np.mean(pred-real)
                 sklearn_r2 = r2_score(real, pred)
                 correlation_coeff = pearsonr(pred, real)
-                
+
                 found_min = False
                 if RMSE < dev_RMSE_min:
                     print "Found a new dev RMSE minimum"
@@ -285,34 +268,30 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
                     np.savez(model_b_file, data=bias)
                     np.savez(train_feature_file, data=train_features)
                     np.savez(dev_feature_file, data=dev_features)
-                    
+
                     dev_R2_max = sklearn_r2
 
                 print 'Dev set', 'dev ME', ME, 'dev RMSE',RMSE, 'dev R2',sklearn_r2,'dev RMSE_min',dev_RMSE_min,'dev R2 for min RMSE',dev_R2_max
                 logging.info('Dev set dev ME %f dev RMSE %f dev R2 %f dev RMSE min %f dev_R2_for_min_RMSE %f',ME,RMSE,sklearn_r2,dev_RMSE_min,dev_R2_max)
-                
+
                 line_to_append = ['dev',str(ME), str(RMSE), str(sklearn_r2), str(dev_RMSE_min), str(dev_R2_max), str(correlation_coeff[0]), str(correlation_coeff[1])]
                 if found_min:
                     line_to_append.append('')
                     line_to_append.append('new dev RMSE min')
 
                 #worksheet_append_wrapper(worksheet, line_to_append)
-    
+
                 #print scores on test set
                 test_pred = []
                 test_real = []
                 test_features = []
-                #test_data_file = train_data_file
-                #test_labels_file = train_labels_file
-                # Use training set to validate for now
-                #for batch in file_generator(train_data_file, train_labels_file, config.B, permuted_band = permuted_band):
                 for batch in file_generator(test_data_file, test_labels_file, config.B, permuted_band = permuted_band):
                     pred_temp, feature = sess.run([model.pred, model.feature], feed_dict={
                         model.x: batch[0],
                         model.y: batch[1],
                         model.keep_prob: 1
                         })
-                    test_pred.append(pred_temp)  
+                    test_pred.append(pred_temp)
                     test_features.append(feature)
                 test_pred=np.concatenate(test_pred)
                 test_features = np.concatenate(test_features)
@@ -323,7 +302,7 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
                 ME=np.mean(test_pred-test_real)
                 sklearn_r2 = r2_score(test_real, test_pred)
                 correlation_coeff = pearsonr(test_pred, test_real)
-                
+
                 if found_min:
                     np.savez(test_predictions_file, data=test_pred)
                     test_RMSE_min = RMSE
@@ -332,7 +311,7 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
                 print 'Test set', 'test ME', ME, 'test RMSE',RMSE, 'test R2',sklearn_r2,'test RMSE_min',test_RMSE_min,'test R2 for min RMSE',test_R2_max
                 print
                 logging.info('Test set test ME %f test RMSE %f test R2 %f test RMSE min %f test_R2_for_min_RMSE %f',ME,RMSE,sklearn_r2,test_RMSE_min,test_R2_max)
-                
+
                 line_to_append = ['test',str(ME), str(RMSE), str(sklearn_r2), str(test_RMSE_min), str(test_R2_max), str(correlation_coeff[0]), str(correlation_coeff[1])]
                 #worksheet_append_wrapper(worksheet, line_to_append)
 
@@ -340,13 +319,52 @@ def run_NN(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restr
                 summary_RMSE.append(str(RMSE))
                 summary_ME.append(str(ME))
                 summary_R2.append(str(sklearn_r2))
-           
+
             if restrict_iterations is not None and i == restrict_iterations:
                 return end_and_output_results(worksheet, train_RMSE_min, train_R2_max, dev_RMSE_min, dev_R2_max, test_RMSE_min, test_R2_max)
 
-                
+
     except KeyboardInterrupt:
         print 'stopped'
+
+def run_NN_test(model, sess, directory, CNN_or_LSTM, config, output_google_doc, restrict_iterations = None, rows_to_add_to_google_doc = None, permuted_band = -1):
+    input_data_dir = os.path.join(GBUCKET, DATASETS, directory)
+
+    # load data to memory
+    test_data_file =  os.path.join(input_data_dir, 'test_hists.npz')
+    test_labels_file = os.path.join(input_data_dir, 'test_yields.npz')
+
+    test_RMSE_min = 1e10
+    test_R2_max = 0
+
+    count = 0
+    target = 25
+
+    #print scores on test set
+    test_pred = []
+    test_real = []
+    test_features = []
+    
+    for batch in file_generator(test_data_file, test_labels_file, config.B, permuted_band = permuted_band):
+        pred_temp, feature = sess.run([model.pred, model.feature], feed_dict={
+            model.x: batch[0],
+            model.y: batch[1],
+            model.keep_prob: 1
+            })
+        test_pred.append(pred_temp)
+        test_features.append(feature)
+    print("Completed!")
+ 
+    test_pred=np.concatenate(test_pred)
+    test_features = np.concatenate(test_features)
+    test_real = np.load(test_labels_file)['data']
+    test_pred = test_pred[:len(test_real)]
+    test_real = test_real[:len(test_pred)]
+    RMSE=np.sqrt(np.mean((test_pred-test_real)**2))
+    ME=np.mean(test_pred-test_real)
+    sklearn_r2 = r2_score(test_real, test_pred)
+    correlation_coeff = pearsonr(test_pred, test_real)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Trains neural network architectures.')
@@ -359,7 +377,7 @@ if __name__ == "__main__":
     parser.add_argument('-it', '--num_iters', type=float, help='Number of training iterations.')
 
     args = parser.parse_args()
-    
+
     directory = args.dataset_source_dir
     if args.nnet_architecture == 'CNN':
         config = CNN_Config(args.season_frac)
@@ -376,7 +394,7 @@ if __name__ == "__main__":
     model.summary_op = tf.summary.merge_all()
     model.saver = tf.train.Saver()
     gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.22)
-    
+
     # Launch the graph.
     sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
     sess.run(tf.initialize_all_variables())
