@@ -403,8 +403,8 @@ if __name__ == "__main__":
     #INSERT NAME OF RESULTS GOOGLE SHEET HERE
     experiment_doc_name = ""
     if (args.predict):
-        print("Run Predict!")
-        #run_NN_test(model, sess, directory, args.nnet_architecture, config, experiment_doc_name, restrict_iterations = args.num_iters, permuted_band = args.permuted_band)
+        print("********* Run Predict ***********")
+        run_NN_test(model, sess, directory, args.nnet_architecture, config, experiment_doc_name, restrict_iterations = args.num_iters, permuted_band = args.permuted_band)
     else:
-        print("Run Training!")
-        #run_NN(model, sess, directory, args.nnet_architecture, config, experiment_doc_name, restrict_iterations = args.num_iters, permuted_band = args.permuted_band)
+        print("********* Run Training **********")
+        run_NN(model, sess, directory, args.nnet_architecture, config, experiment_doc_name, restrict_iterations = args.num_iters, permuted_band = args.permuted_band)
