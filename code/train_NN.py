@@ -365,6 +365,19 @@ def run_NN_test(model, sess, directory, CNN_or_LSTM, config, output_google_doc, 
     sklearn_r2 = r2_score(test_real, test_pred)
     correlation_coeff = pearsonr(test_pred, test_real)
 
+    print("******** test_pred *********")
+    print(test_pred)
+    print("******** test_real *********")
+    print(test_real)
+    print("******** RMSE *********")
+    print(RMSE)
+    print("******** ME *********")
+    print(ME)
+    print("******** sklearn_r2 *********")
+    print(sklearn_r2)
+    print("******** correlation_coeff *********")
+    print(correlation_coeff)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Trains neural network architectures.')
