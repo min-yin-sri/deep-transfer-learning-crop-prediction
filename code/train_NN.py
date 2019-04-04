@@ -375,7 +375,7 @@ if __name__ == "__main__":
     parser.add_argument('-p', '--permuted_band', type=int, help='Band to permute.')
     parser.set_defaults(permuted_band=-1)
     parser.add_argument('-it', '--num_iters', type=float, help='Number of training iterations.')
-    parser.add_argument('-d', '--predict', type=bool, help='Run crop yields prediction.')
+    parser.add_argument('-d', '--predict', type=str, default=None, help='Run crop yields prediction.')
 
     args = parser.parse_args()
 
@@ -403,6 +403,8 @@ if __name__ == "__main__":
     #INSERT NAME OF RESULTS GOOGLE SHEET HERE
     experiment_doc_name = ""
     if (args.predict):
-        run_NN_test(model, sess, directory, args.nnet_architecture, config, experiment_doc_name, restrict_iterations = args.num_iters, permuted_band = args.permuted_band)
+        print("Run Predict!")
+        #run_NN_test(model, sess, directory, args.nnet_architecture, config, experiment_doc_name, restrict_iterations = args.num_iters, permuted_band = args.permuted_band)
     else:
-        run_NN(model, sess, directory, args.nnet_architecture, config, experiment_doc_name, restrict_iterations = args.num_iters, permuted_band = args.permuted_band)
+        print("Run Training!")
+        #run_NN(model, sess, directory, args.nnet_architecture, config, experiment_doc_name, restrict_iterations = args.num_iters, permuted_band = args.permuted_band)
