@@ -1,0 +1,2 @@
+python histograms.py -d brazil_histograms_09142018 -s brazil_sat_s000224_e161231_scl750 -c brazil_cover_s010101_e131231_scl750 -t brazil_temp_s020731_e161231_scl750
+
