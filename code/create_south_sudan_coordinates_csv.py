@@ -31,7 +31,7 @@ TODO:
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser( description = desc )
-  parser.add_argument( "csv_dir", type = str, default = PATH, help = "Directory that holds the original all coordinates csv files" )
+  parser.add_argument( "--csv_dir", type = str, default = PATH, help = "Directory that holds the original all coordinates csv files" )
   parser.add_argument( "--all_csv_file", type = str, default = COORDINATES_CSV_FILENAME, help = "All cordinate csv file name" )
   parser.add_argument( "--output_dir", "-o", type = str, default = PATH, help = "Output directory of the South Sudan coordinates csv files" )
   parser.add_argument( "--south_sudan_csv_file", type = str, default = SOUTH_SUDAN_CSV_FILENAME, help = "Image wild card in each sequence" )
