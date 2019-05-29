@@ -10,7 +10,7 @@ import os
 import glob
 import csv
 
-PATH = "~/bucket3/textual_global_feature_vectors"
+PATH = "/root/bucket3/textual_global_feature_vectors"
 COORDINATES_CSV_FILENAME = "All_Image_Coordinates_2.csv"
 SOUTH_SUDAN_CSV_FILENAME = "South_Sudan_Coordinates_.csv"
 
