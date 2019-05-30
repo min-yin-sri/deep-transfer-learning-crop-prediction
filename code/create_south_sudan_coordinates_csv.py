@@ -21,7 +21,7 @@ LAT_MAX = 30.0 #13.0
 # The Minimum of South Sudan Longitude
 LON_MIN = -12.0 #24.0
 # The Maximum of South Sudan Longitude
-LON_MAX = 48.0 #72 #36.0
+LON_MAX = 60.0 #72 #36.0
 
 
 desc = """ Create a csv file that filter out all the none South Sudan coordinates entries from the all coordinates file.
