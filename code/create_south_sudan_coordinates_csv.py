@@ -64,7 +64,7 @@ if __name__ == "__main__":
   index = 0
   for entry in all_csv_list:
     if index == 0:
-        break
+        continue
     if (float(entry[3]) >= LAT_MIN and float(entry[3]) <= LAT_MAX 
         and float(entry[4]) >= LON_MIN and float(entry[4]) <= LON_MAX):
         south_sudan_csv_list[index] = entry
