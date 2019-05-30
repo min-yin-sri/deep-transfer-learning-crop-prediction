@@ -70,7 +70,7 @@ if __name__ == "__main__":
         continue
     elif (float(entry[3]) >= LAT_MIN and float(entry[3]) <= LAT_MAX ):
         #and float(entry[4]) >= LON_MIN and float(entry[4]) <= LON_MAX):
-        south_sudan_csv_list.add(entry)
+        south_sudan_csv_list.append(entry)
         logging.info("Get a South Sudan csv entry: %s %s %s" % (entry[0], entry[3], entry[4]) )
     index = index + 1
 
