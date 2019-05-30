@@ -94,7 +94,7 @@ if __name__ == "__main__":
   logging.info("The first line of coordinate csv file: %s %s %s" % (coordinate_list[0][0], coordinate_list[0][3], coordinate_list[0][4]) )
   logging.info("The first line of coordinate csv file: %s %s %s" % (coordinate_list[1][0], coordinate_list[1][3], coordinate_list[1][4]) )
 
-  ground_trutch_input_file = os.path.join( args.data_dir, args.ground_truth_file )
+  ground_truth_input_file = os.path.join( args.data_dir, args.ground_truth_file )
   logging.info("Ground truth file is at %s" % ground_truth_input_file)
 
   with open(ground+truth_input_file, 'rb') as gf:
