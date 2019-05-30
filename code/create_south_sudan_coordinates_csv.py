@@ -68,8 +68,8 @@ if __name__ == "__main__":
     if index == 0:
         index = index + 1
         continue
-    elif (float(entry[3]) >= LAT_MIN and float(entry[3]) <= LAT_MAX 
-        and float(entry[4]) >= LON_MIN and float(entry[4]) <= LON_MAX):
+    elif (float(entry[3]) >= LAT_MIN and float(entry[3]) <= LAT_MAX ):
+        #and float(entry[4]) >= LON_MIN and float(entry[4]) <= LON_MAX):
         south_sudan_csv_list[index] = entry
         logging.info("Get a South Sudan csc entry: %s %s %s" % (entry[0], entry[3], entry[4]) )
     index = index + 1
