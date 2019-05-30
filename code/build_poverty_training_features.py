@@ -91,12 +91,20 @@ if __name__ == "__main__":
   logging.info("The first line of ground truth csv file: %s %s %s" % (ground_truth_list[1][0], ground_truth_list[1][8], ground_truth_list[1][9]) )
 
   # For each entry in the ground truth
+  ground_truth_index = 0;
   for ground_truth_entry in ground_truth_list:
+    if ground_truth_index == 0:
+        ground_truth_index = ground_truth_index + 1
+        continue
     lon = ground_truth_entry[8]
     lat = ground_truth_entry[9]
     distance_array = []
     # For each article in the coordiante list, calcuate the distance to ground truth entry
+    coordiante_index = 0;
     for coordinate_entry in coordinate_list:
+        if coordinate_index == 0:
+            coordinate_index = coordiante_index + 1
+            continue
         distance = compute_distance ([lat, lon], [coordinate_entry[3], coordinate_entry[4]])
         distance_array.append([coordinate_entry[0], distance])
     # Sort the distance
