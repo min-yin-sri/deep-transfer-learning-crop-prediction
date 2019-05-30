@@ -31,24 +31,6 @@ LAT_KM = 110.574
 # The number of km in one degree of longitude
 LON_KM = 111.320
 
-# Returns the embeddings and the average embedding of an array of articles
-def get_embeddings_average(array, model):
-    if len(array) == 0:
-        return [], None
-    embeddings = []
-    for i in array:
-        embeddings.append(model.docvecs[get_title(i[1])])
-
-    av = []
-    for i in range(len(embeddings[0])):
-        sum_ = 0
-        for j in embeddings:
-            sum_ += j[i]
-        sum_ /= float(len(embeddings))
-        av.append(sum_)
-
-    return embeddings, av
-
 # Given coordinates a, b in deg, return the distance between a and b in km         
 def compute_distance(c1, c2):
     # approximate radius of earth in km
@@ -83,6 +65,9 @@ if __name__ == "__main__":
   console_level = logging.WARN if args.verbosity == 0 else logging.INFO if args.verbosity == 1 else logging.DEBUG
   logging.basicConfig( level = console_level, format = '[%(levelname)s] %(message)s' )
 
+  count = args.number
+  logging.info("Get the %d cloest articles." % count)
+
   coordinate_input_file = os.path.join( args.data_dir, args.coordinate_file )
   logging.info("Coordiantes file is at %s" % coordinate_input_file)
 
@@ -104,5 +89,19 @@ if __name__ == "__main__":
   logging.info("ground truth csv file has %d entries" % len(ground_truth_list))
   logging.info("The first line of ground truth csv file: %s %s %s" % (ground_truth_list[0][0], ground_truth_list[0][8], ground_truth_list[0][9]) )
   logging.info("The first line of ground truth csv file: %s %s %s" % (ground_truth_list[1][0], ground_truth_list[1][8], ground_truth_list[1][9]) )
+
+  # For each entry in the ground truth
+  for ground_truth_entry in ground_truth_list:
+    lon = ground_truth_entry[8]
+    lat = ground_truth_entry[9]
+    distance_array = []
+    # For each article in the coordiante list, calcuate the distance to ground truth entry
+    for coordinate_entry in coordinate_list:
+        distance = compute_distance ([lat, lon], [coordinate_entry[3], coordinate_entry[4]])
+        distance_array.append([coordinate_entry[0], distance])
+    # Sort the distance
+    distance_array.sort(key=lambda articles: articles[1], reverse=True)
+    # Get the closest N articles
+    print distance_array 
 
   logging.info( "---" )
