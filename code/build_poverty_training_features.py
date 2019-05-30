@@ -29,7 +29,7 @@ MARGIN = 10
 # The number of km in one degree of latitude
 LAT_KM = 110.574
 
-# The number of km in one degree of longFFFFFFitude
+# The number of km in one degree of longitude
 LON_KM = 111.320
 
 # Returns the embeddings and the average embedding of an array of articles
