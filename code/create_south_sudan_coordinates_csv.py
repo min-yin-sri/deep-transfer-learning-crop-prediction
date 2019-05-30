@@ -12,24 +12,24 @@ import csv
 
 PATH = "/root/bucket3/textual_global_feature_vectors"
 COORDINATES_CSV_FILENAME = "Africa_Image_Coordinates.csv" #"All_Image_Coordinates_2.csv"
-SOUTH_SUDAN_CSV_FILENAME = "Ethiopia_Coordinates.csv" #"South_Sudan_Coordinates.csv"
+SOUTH_SUDAN_CSV_FILENAME = "South_Sudan_Coordinates.csv" #"Ethiopia_Coordinates.csv" 
 
 # The Minimum of South Sudan Latitude
-#LAT_MIN = 3.0 #0.0 #3.0
-# The Maximum of South Sudan Latitude
-#LAT_MAX = 13.0 #30.0 #13.0
-# The Minimum of South Sudan Longitude
-#LON_MIN = 24.0 #12.0 #24.0
-# The Maximum of South Sudan Longitude
-#LON_MAX = 36.0 #60.0 #72 #36.0
-
 LAT_MIN = 3.0 #0.0 #3.0
 # The Maximum of South Sudan Latitude
-LAT_MAX = 16.0 #30.0 #13.0
+LAT_MAX = 13.0 #30.0 #13.0
 # The Minimum of South Sudan Longitude
-LON_MIN = 32.0 #12.0 #24.0
+LON_MIN = 24.0 #12.0 #24.0
 # The Maximum of South Sudan Longitude
-LON_MAX = 48.0 #60.0 #72 #36.0
+LON_MAX = 36.0 #60.0 #72 #36.0
+
+#LAT_MIN = 3.0 #0.0 #3.0
+# The Maximum of South Sudan Latitude
+#LAT_MAX = 16.0 #30.0 #13.0
+# The Minimum of South Sudan Longitude
+#LON_MIN = 32.0 #12.0 #24.0
+# The Maximum of South Sudan Longitude
+#LON_MAX = 48.0 #60.0 #72 #36.0
 
 desc = """ Create a csv file that filter out all the none South Sudan coordinates entries from the all coordinates file.
 TODO:  
