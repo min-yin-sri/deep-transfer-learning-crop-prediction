@@ -19,7 +19,7 @@ LAT_MIN = -3.0 #3.0
 # The Maximum of South Sudan Latitude
 LAT_MAX = 30 #13.0
 # The Minimum of South Sudan Longitude
-LON_MIN = 0 #24.0
+LON_MIN = -12 #24.0
 # The Maximum of South Sudan Longitude
 LON_MAX = 48 #72 #36.0
 
