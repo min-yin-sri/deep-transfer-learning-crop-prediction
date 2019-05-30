@@ -15,13 +15,13 @@ COORDINATES_CSV_FILENAME = "All_Image_Coordinates_2.csv"
 SOUTH_SUDAN_CSV_FILENAME = "South_Sudan_Coordinates_.csv"
 
 # The Minimum of South Sudan Latitude
-LAT_MIN = 3.0
+LAT_MIN = 0 #3.0
 # The Maximum of South Sudan Latitude
-LAT_MAX = 22 #13.0
+LAT_MAX = 26 #13.0
 # The Minimum of South Sudan Longitude
-LON_MIN = 21 #24.0
+LON_MIN = 12 #24.0
 # The Maximum of South Sudan Longitude
-LON_MAX = 49 #36.0
+LON_MAX = 72 #36.0
 
 
 desc = """ Create a csv file that filter out all the none South Sudan coordinates entries from the all coordinates file.
