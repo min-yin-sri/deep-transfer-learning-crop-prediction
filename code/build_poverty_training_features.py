@@ -1,6 +1,5 @@
 
 import sys
-from data_processor import *
 import numpy as np
 import gensim
 import pandas as pd
