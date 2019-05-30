@@ -53,13 +53,6 @@ if __name__ == "__main__":
   logging.info("The first line of all csv file: %s %s %s" % (all_csv_list[0][0], all_csv_list[0][3], all_csv_list[0][4]) )
   logging.info("The first line of all csv file: %s %s %s" % (all_csv_list[1][0], all_csv_list[1][3], all_csv_list[1][4]) )
 
-  if not os.path.exists( args.output_dir ):
-    logging.info( "Creating folder: %s" % args.output_dir )
-    os.makedirs( args.output_dir )
-
-  output_file = os.path.join( args.output_dir, args.south_sudan_csv_file )
-  logging.info("Output file is at %s" % output_file)
-
   south_sudan_csv_list = [all_csv_list[0]]
   index = 0
   for entry in all_csv_list:
@@ -74,4 +67,16 @@ if __name__ == "__main__":
     index = index + 1
 
   logging.info( "South Sudan csv file has %d entries" % len(south_sudan_csv_list))
+
+  if not os.path.exists( args.output_dir ):
+    logging.info( "Creating folder: %s" % args.output_dir )
+    os.makedirs( args.output_dir )
+
+  output_file = os.path.join( args.output_dir, args.south_sudan_csv_file )
+  logging.info("Output file is at %s" % output_file)
+
+  with open(output_file, 'wb') as out:
+    wr = csv.writer(out, dialect='excel')
+    wr.writerows(south_sudan_csv_list)
+
   logging.info( "---" )
