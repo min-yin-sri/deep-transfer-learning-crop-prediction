@@ -103,7 +103,7 @@ if __name__ == "__main__":
     coordinate_index = 0;
     for coordinate_entry in coordinate_list:
         if coordinate_index == 0:
-            coordinate_index = coordiante_index + 1
+            coordinate_index = coordinate_index + 1
             continue
         distance = compute_distance ([lat, lon], [coordinate_entry[3], coordinate_entry[4]])
         distance_array.append([coordinate_entry[0], distance])
