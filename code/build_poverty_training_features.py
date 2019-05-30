@@ -111,18 +111,26 @@ if __name__ == "__main__":
     # Sort the distance
     distance_array.sort(key=lambda articles: articles[1])
     # Limit to closest N
-    chosen_articles = distance_array[0:count]
+    # Get the closest N articles
+    chosen_count = 0
+    chosen_articles = []
+    feature_array = []
+    for article_entry in distance_array:
+        feature_name = article_entry[0] + ".npy"
+        feature_file_name = os.path.join( FEATURE_PATH, feature_name )
+        if not os.path.exists( feature_file_name ):
+            logging.info("feature file %s doesn't exist, skip it." % feature_file_name)
+        else:
+            # Load the feature file
+            feature_array.append(np.load(feature_file_name))
+            if ground_truth_index < 10:
+                print feature_file_name
+            chosen_count = chosen_count + 1
+            if chosen_count >= count:
+                break
+        
     ground_truth_index = ground_truth_index + 1
     if ground_truth_index < 10 :
         print chosen_articles
-    # Get the closest N articles
-    feature_array = []
-    for article_entry in chosen_articles:
-        feature_name = article_entry[0] + ".npy"
-        feature_file_name = os.path.join( FEATURE_PATH, feature_name )
-        if ground_truth_index < 10:
-            print feature_file_name
-        # Load the feature file
-        feature_array.append(np.load(feature_file_name))
 
   logging.info( "---" )
