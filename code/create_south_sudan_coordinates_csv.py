@@ -12,7 +12,7 @@ import csv
 
 PATH = "/root/bucket3/textual_global_feature_vectors"
 COORDINATES_CSV_FILENAME = "Africa_Image_Coordinates.csv" #"All_Image_Coordinates_2.csv"
-SOUTH_SUDAN_CSV_FILENAME = "South_Sudan_Coordinates_.csv"
+SOUTH_SUDAN_CSV_FILENAME = "Ethiopia_Coordinates.csv" #"South_Sudan_Coordinates.csv"
 
 # The Minimum of South Sudan Latitude
 #LAT_MIN = 3.0 #0.0 #3.0
