@@ -109,7 +109,11 @@ if __name__ == "__main__":
         distance_array.append([coordinate_entry[0], distance])
     # Sort the distance
     distance_array.sort(key=lambda articles: articles[1], reverse=True)
+    ground_truth_index = ground_truth_index + 1
+    if ground_truth_index < 10 :
+        print distance_array[count-1]
+        print distance_array[count]
     # Get the closest N articles
-    print distance_array[count] 
+     
 
   logging.info( "---" )
