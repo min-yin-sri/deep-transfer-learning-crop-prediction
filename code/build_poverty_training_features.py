@@ -119,8 +119,9 @@ if __name__ == "__main__":
         feature_name = article_entry[0] + ".npy"
         feature_file_name = os.path.join( FEATURE_PATH, feature_name )
         if not os.path.exists( feature_file_name ):
-            logging.info("feature file %s doesn't exist, skip it." % feature_file_name)
+            logging.debug("feature file %s doesn't exist, skip it." % feature_file_name)
         else:
+            chosen_articles.append(article_entry)
             # Load the feature file
             feature_array.append(np.load(feature_file_name))
             if ground_truth_index < 10:
