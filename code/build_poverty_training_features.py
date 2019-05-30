@@ -35,10 +35,10 @@ LON_KM = 111.320
 def compute_distance(c1, c2):
     # approximate radius of earth in km
     R = 6373.0
-    lat1 = radians(c1[0])
-    lon1 = radians(c1[1])
-    lat2 = radians(c2[0])
-    lon2 = radians(c2[1])
+    lat1 = radians(float(c1[0]))
+    lon1 = radians(float(c1[1]))
+    lat2 = radians(float(c2[0]))
+    lon2 = radians(float(c2[1]))
     dlon = lon2 - lon1
     dlat = lat2 - lat1
     a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
