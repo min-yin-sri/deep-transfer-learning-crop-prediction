@@ -15,6 +15,7 @@ import csv
 
 
 PATH = "/root/bucket3/textual_global_feature_vectors"
+FEATURE_PATH = "/root/bucket3/textual_global_feature_vectors/features"
 POVERTY_GROUND_TRUTH_FILENAME = "wealth_index_cluster_locations_2017_08.csv"
 COORDINATES_CSV_FILENAME = "Africa_Image_Coordinates.csv" #"All_Image_Coordinates_2.csv"
 SOUTH_SUDAN_CSV_FILENAME = "South_Sudan_Coordinates.csv" #"Ethiopia_Coordinates.csv" 
@@ -110,11 +111,19 @@ if __name__ == "__main__":
     # Sort the distance
     distance_array.sort(key=lambda articles: articles[1])
     # Limit to closest N
-    chosen_articles = distance_array[0:count-1]
+    chosen_articles = distance_array[0:count]
     ground_truth_index = ground_truth_index + 1
     if ground_truth_index < 10 :
         print chosen_articles
     # Get the closest N articles
-     
+    features_array = []
+    for article_entry in chosen_articles:
+        feature_name = article_entry[0]
+        feature_file_name = os.path.join( FEATURE_PATH, feature_file_name )
+        if ground_truth_index < 10:
+            print feature_file_name
+        # Load the feature file
+        feature_array.append(np.load(feature_file_name))
+    
 
   logging.info( "---" )
