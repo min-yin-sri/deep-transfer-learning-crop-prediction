@@ -17,7 +17,7 @@ SOUTH_SUDAN_CSV_FILENAME = "South_Sudan_Coordinates_.csv"
 # The Minimum of South Sudan Latitude
 LAT_MIN = 0.0 #3.0
 # The Maximum of South Sudan Latitude
-LAT_MAX = 26.0 #13.0
+LAT_MAX = 30.0 #13.0
 # The Minimum of South Sudan Longitude
 LON_MIN = 12.0 #24.0
 # The Maximum of South Sudan Longitude
