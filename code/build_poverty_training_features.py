@@ -1,7 +1,7 @@
 
 import sys
 import numpy as np
-import gensim
+#import gensim
 import pandas as pd
 import pickle
 import random
