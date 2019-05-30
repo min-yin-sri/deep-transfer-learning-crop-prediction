@@ -60,4 +60,13 @@ if __name__ == "__main__":
   output_file = os.path.join( args.output_dir, args.south_sudan_csv_file )
   logging.info("Output file is at %s" % output_file)
 
+  south_sudan_csv_list[0] = all_csv_list[0]
+  index = 1
+  for entry in all_csv_list:
+    if (float(entry[3]) >= LAT_MIN and float(entry[3]) <= LAT_MAX 
+        and float(entry[4]) >= LON_MIN and float(entry[4]) <= LON_MAX):
+    south_sudan_csv_list[index] = entry
+    index = index + 1
+
+  logging.info( "South Sudan csv file has %d entries" % len(south_sudan_csv_list))
   logging.info( "--" )
