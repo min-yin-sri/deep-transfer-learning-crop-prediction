@@ -61,8 +61,10 @@ if __name__ == "__main__":
   logging.info("Output file is at %s" % output_file)
 
   south_sudan_csv_list = [all_csv_list[0]]
-  index = 1
+  index = 0
   for entry in all_csv_list:
+    if index == 0:
+        break
     if (float(entry[3]) >= LAT_MIN and float(entry[3]) <= LAT_MAX 
         and float(entry[4]) >= LON_MIN and float(entry[4]) <= LON_MAX):
         south_sudan_csv_list[index] = entry
