@@ -15,23 +15,25 @@ POVERTY_GROUND_TRUTH_FILENAME = "wealth_index_cluster_locations_2017_08.csv"
 COORDINATES_CSV_FILENAME = "Africa_Image_Coordinates.csv" #"All_Image_Coordinates_2.csv"
 SOUTH_SUDAN_CSV_FILENAME = "South_Sudan_Coordinates.csv" #"Ethiopia_Coordinates.csv" 
 SOUTH_SUDAN_GROUND_TRUTH_FILENAME = "South_Sudan_Grouth_Truth.csv"
+ETHIOPIA_GROUTH_TRUTH_FILENAME = "Ethiopia_Grouth_Truth.csv"
 
 # The Minimum of South Sudan Latitude
-LAT_MIN = 3.0 #0.0 #3.0
-# The Maximum of South Sudan Latitude
-LAT_MAX = 13.0 #30.0 #13.0
-# The Minimum of South Sudan Longitude
-LON_MIN = 24.0 #12.0 #24.0
-# The Maximum of South Sudan Longitude
-LON_MAX = 36.0 #60.0 #72 #36.0
-
 #LAT_MIN = 3.0 #0.0 #3.0
 # The Maximum of South Sudan Latitude
-#LAT_MAX = 16.0 #30.0 #13.0
+#LAT_MAX = 13.0 #30.0 #13.0
 # The Minimum of South Sudan Longitude
-#LON_MIN = 32.0 #12.0 #24.0
+#LON_MIN = 24.0 #12.0 #24.0
 # The Maximum of South Sudan Longitude
-#LON_MAX = 48.0 #60.0 #72 #36.0
+#LON_MAX = 36.0 #60.0 #72 #36.0
+
+# The Minimum of Ethiopia Latitude
+LAT_MIN = 3.0 #0.0 #3.0
+# The Maximum of Ethiopia Latitude
+LAT_MAX = 16.0 #30.0 #13.0
+# The Minimum of Ethiopia Longitude
+LON_MIN = 32.0 #12.0 #24.0
+# The Maximum of Ethiopia Longitude
+LON_MAX = 48.0 #60.0 #72 #36.0
 
 desc = """ Create a csv file that filter out all the none South Sudan coordinates entries from the all coordinates file.
 TODO:  
@@ -43,7 +45,7 @@ if __name__ == "__main__":
   parser.add_argument( "--csv_dir", type = str, default = PATH, help = "Directory that holds the original all coordinates csv files" )
   parser.add_argument( "--all_csv_file", type = str, default = POVERTY_GROUND_TRUTH_FILENAME, help = "All cordinate csv file name" )
   parser.add_argument( "--output_dir", "-o", type = str, default = PATH, help = "Output directory of the South Sudan coordinates csv files" )
-  parser.add_argument( "--south_sudan_csv_file", type = str, default = SOUTH_SUDAN_GROUND_TRUTH_FILENAME, help = "Image wild card in each sequence" )
+  parser.add_argument( "--south_sudan_csv_file", type = str, default = ETHIOPIA_GROUTH_TRUTH_FILENAME, help = "Image wild card in each sequence" )
   parser.add_argument( "--verbosity", "-v", action="count", default = 1, help = "Verbosity level" )
   args = parser.parse_args()
     
