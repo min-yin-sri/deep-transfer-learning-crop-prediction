@@ -97,7 +97,7 @@ if __name__ == "__main__":
   ground_truth_input_file = os.path.join( args.data_dir, args.ground_truth_file )
   logging.info("Ground truth file is at %s" % ground_truth_input_file)
 
-  with open(ground+truth_input_file, 'rb') as gf:
+  with open(ground_truth_input_file, 'rb') as gf:
     greader = csv.reader(gf)
     ground_truth_list = list(greader)
 
