@@ -116,7 +116,7 @@ if __name__ == "__main__":
     if ground_truth_index < 10 :
         print chosen_articles
     # Get the closest N articles
-    features_array = []
+    feature_array = []
     for article_entry in chosen_articles:
         feature_name = article_entry[0]
         feature_file_name = os.path.join( FEATURE_PATH, feature_name )
