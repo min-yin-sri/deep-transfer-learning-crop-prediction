@@ -110,6 +110,6 @@ if __name__ == "__main__":
     # Sort the distance
     distance_array.sort(key=lambda articles: articles[1], reverse=True)
     # Get the closest N articles
-    print distance_array 
+    print distance_array[number] 
 
   logging.info( "---" )
