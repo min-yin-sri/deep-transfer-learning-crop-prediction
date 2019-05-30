@@ -118,7 +118,7 @@ if __name__ == "__main__":
     # Get the closest N articles
     feature_array = []
     for article_entry in chosen_articles:
-        feature_name = article_entry[0]
+        feature_name = article_entry[0] + ".npy"
         feature_file_name = os.path.join( FEATURE_PATH, feature_name )
         if ground_truth_index < 10:
             print feature_file_name
