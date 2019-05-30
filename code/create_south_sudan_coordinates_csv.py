@@ -15,7 +15,7 @@ COORDINATES_CSV_FILENAME = "All_Image_Coordinates_2.csv"
 SOUTH_SUDAN_CSV_FILENAME = "South_Sudan_Coordinates_.csv"
 
 # The Minimum of South Sudan Latitude
-LAT_MIN = 0 #3.0
+LAT_MIN = -3.0 #3.0
 # The Maximum of South Sudan Latitude
 LAT_MAX = 26 #13.0
 # The Minimum of South Sudan Longitude
