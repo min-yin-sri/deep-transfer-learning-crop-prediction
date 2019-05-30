@@ -100,7 +100,7 @@ if __name__ == "__main__":
     lat = ground_truth_entry[9]
     distance_array = []
     # For each article in the coordiante list, calcuate the distance to ground truth entry
-    coordiante_index = 0;
+    coordinate_index = 0;
     for coordinate_entry in coordinate_list:
         if coordinate_index == 0:
             coordinate_index = coordiante_index + 1
