@@ -69,4 +69,4 @@ if __name__ == "__main__":
     index = index + 1
 
   logging.info( "South Sudan csv file has %d entries" % len(south_sudan_csv_list))
-  logging.info( "--" )
+  logging.info( "---" )
