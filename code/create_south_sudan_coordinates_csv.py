@@ -15,13 +15,13 @@ COORDINATES_CSV_FILENAME = "All_Image_Coordinates_2.csv"
 SOUTH_SUDAN_CSV_FILENAME = "South_Sudan_Coordinates_.csv"
 
 # The Minimum of South Sudan Latitude
-LAT_MIN = 3
+LAT_MIN = 3.0
 # The Maximum of South Sudan Latitude
-LAT_MAX = 13
+LAT_MAX = 13.0
 # The Minimum of South Sudan Longitude
-LON_MIN = 24
+LON_MIN = 24.0
 # The Maximum of South Sudan Longitude
-LON_MAX = 36
+LON_MAX = 36.0
 
 
 desc = """ Create a csv file that filter out all the none South Sudan coordinates entries from the all coordinates file.
@@ -64,14 +64,14 @@ if __name__ == "__main__":
   index = 0
   for entry in all_csv_list:
     if index < 10:
-        logging.info("Get a South Sudan csc entry: %s %s %s" % (entry[0], entry[3], entry[4]) )
+        logging.info("Get a csv entry: %s %s %s" % (entry[0], entry[3], entry[4]) )
     if index == 0:
         index = index + 1
         continue
     elif (float(entry[3]) >= LAT_MIN and float(entry[3]) <= LAT_MAX ):
         #and float(entry[4]) >= LON_MIN and float(entry[4]) <= LON_MAX):
-        south_sudan_csv_list[index] = entry
-        logging.info("Get a South Sudan csc entry: %s %s %s" % (entry[0], entry[3], entry[4]) )
+        south_sudan_csv_list.add(entry)
+        logging.info("Get a South Sudan csv entry: %s %s %s" % (entry[0], entry[3], entry[4]) )
     index = index + 1
 
   logging.info( "South Sudan csv file has %d entries" % len(south_sudan_csv_list))
