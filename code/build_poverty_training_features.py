@@ -16,6 +16,7 @@ import csv
 
 PATH = "/root/bucket3/textual_global_feature_vectors"
 FEATURE_PATH = "/root/bucket3/textual_global_feature_vectors/features"
+OUTPUT_PATH = "/root/bucket3/textual_global_feature_vectors/training_sets"
 POVERTY_GROUND_TRUTH_FILENAME = "wealth_index_cluster_locations_2017_08.csv"
 COORDINATES_CSV_FILENAME = "Africa_Image_Coordinates.csv" #"All_Image_Coordinates_2.csv"
 SOUTH_SUDAN_CSV_FILENAME = "South_Sudan_Coordinates.csv" #"Ethiopia_Coordinates.csv" 
@@ -58,7 +59,7 @@ if __name__ == "__main__":
   parser.add_argument( "--data_dir", type = str, default = PATH, help = "Directory that holds all the necessary data files" )
   parser.add_argument( "--coordinate_file", type = str, default = ETHIOPIA_COODINATES_FILENAME, help = "Coordinates csv file name" )
   parser.add_argument( "--ground_truth_file", type = str, default = ETHIOPIA_GROUTH_TRUTH_FILENAME, help = "Ground truth file name" )
-  parser.add_argument( "--output_dir", "-o", type = str, default = PATH, help = "Output directory of created training feature files" )
+  parser.add_argument( "--output_dir", "-o", type = str, default = OUTPUT_PATH, help = "Output directory of created training feature files" )
   parser.add_argument( "--verbosity", "-v", action="count", default = 1, help = "Verbosity level" )
   args = parser.parse_args()
     
@@ -88,8 +89,8 @@ if __name__ == "__main__":
     ground_truth_list = list(greader)
 
   logging.info("ground truth csv file has %d entries" % len(ground_truth_list))
-  logging.info("The first line of ground truth csv file: %s %s %s" % (ground_truth_list[0][0], ground_truth_list[0][8], ground_truth_list[0][9]) )
-  logging.info("The first line of ground truth csv file: %s %s %s" % (ground_truth_list[1][0], ground_truth_list[1][8], ground_truth_list[1][9]) )
+  logging.info("The first line of ground truth csv file: %s %s %s" % (ground_truth_list[0][7], ground_truth_list[0][8], ground_truth_list[0][9]) )
+  logging.info("The first line of ground truth csv file: %s %s %s" % (ground_truth_list[1][7], ground_truth_list[1][8], ground_truth_list[1][9]) )
 
   # For each entry in the ground truth
   ground_truth_index = 0;
@@ -124,14 +125,20 @@ if __name__ == "__main__":
             chosen_articles.append(article_entry)
             # Load the feature file
             feature_array.append(np.load(feature_file_name))
-            if ground_truth_index < 10:
-                print feature_file_name
+            #if ground_truth_index < 10:
+            #    print feature_file_name
             chosen_count = chosen_count + 1
             if chosen_count >= count:
                 break
-        
+    # Save N features
+    if not os.path.exists( args.output_dir ):
+        logging.info( "Creating folder: %s" % args.output_dir )
+        os.makedirs( args.output_dir )
+    output_file = os.path.join( args.output_dir, ground_truth_entry[7]+".npy" )
+    np.save(output_file, feature_array)
     ground_truth_index = ground_truth_index + 1
-    if ground_truth_index < 10 :
+    if ground_truth_index < 7 :
         print chosen_articles
+        print output_file
 
   logging.info( "---" )
