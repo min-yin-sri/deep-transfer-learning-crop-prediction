@@ -122,6 +122,7 @@ def main():
                     _, loss_value = sess.run([train_op, cross_entropy], feed_dict={is_training : True, x_train: np.reshape(train_imgs, [32, 3000]), y_train: np.reshape(train_labels, [32,1])})
                     train_counter += 1
                 except Exception as error:
+                    pdb.set_trace()
                     continue
                 if epoch_id % 50 == 0:
                     print("Training Loss at iteration {} {} : {}".format(epoch_number, epoch_id, loss_value))
@@ -136,6 +137,7 @@ def main():
                     overall_loss_value += loss_value
                     counter += 1.
                 except Exception as error:
+                    pdb.set_trace()
                     print(error)
                     continue
             print("Validation Loss at iteration {} : {}".format(epoch_number, overall_loss_value / counter))
