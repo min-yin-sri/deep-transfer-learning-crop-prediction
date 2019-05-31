@@ -42,7 +42,7 @@ class CNN():
         predictions = tf.nn.relu(predictions)
         return predictions
 
-   def _regression_layer(self, input_data, shape, bias_shape, filter_id, classification_layer=False):
+    def _regression_layer(self, input_data, shape, bias_shape, filter_id, classification_layer=False):
         """ Run a Fully Connected Layer and ReLU if necessary """
         weights = self.weight_variable(shape, 'weights'+  filter_id)
         bias = self.bias_variable(bias_shape, 'bias' + filter_id)
