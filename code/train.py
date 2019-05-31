@@ -125,7 +125,7 @@ def main():
                     ### ------ This Batch Reader Needs to Return Bx3000 D tensor and corresponding labels Bx1 ------ #####
                     pdb.set_trace()
                     train_imgs, train_labels = prepare_dataset.batch_reader(train_filenames, iteration_number, args.train_dir, labels_df, args.batch_size)
-                    _, loss_value = sess.run([train_op, cross_entropy], feed_dict={is_training : True, x_train: train_imgs, y_train: train_labels})
+                    _, loss_value = sess.run([train_op, cross_entropy], feed_dict={is_training : True, x_train: np.reshape(train_imgs, [32, 3000]), y_train: np.reshape(train_labels, [32,1])})
                     train_counter += 1
                 except Exception as error:
                     continue
