@@ -125,7 +125,7 @@ def main():
                     ### ------ This Batch Reader Needs to Return Bx3000 D tensor and corresponding labels Bx1 ------ #####
                     pdb.set_trace()
                     train_imgs, train_labels = prepare_dataset.batch_reader(train_filenames, iteration_number, args.train_dir, labels_df, args.batch_size)
-                    summary, _, loss_value = sess.run([merged, train_op, cross_entropy], feed_dict={is_training : True, x_train: train_imgs, y_train: train_labels})
+                    summary, _, loss_value = sess.run([train_op, cross_entropy], feed_dict={is_training : True, x_train: train_imgs, y_train: train_labels})
                     train_counter += 1
                 except Exception as error:
                     continue
@@ -137,7 +137,7 @@ def main():
             for iteration_number in range(0, len(val_filenames), args.batch_size):
                 try:
                     val_imgs, val_labels = prepare_dataset.batch_reader(val_filenames, iteration_number, args.test_dir, labels_df)
-                    summary, loss_value = sess.run([merged, cross_entropy], feed_dict={is_training : False, x_train: val_imgs, y_train: val_labels})
+                    summary, loss_value = sess.run([cross_entropy], feed_dict={is_training : False, x_train: val_imgs, y_train: val_labels})
                     overall_loss_value += loss_value
                     counter += 1.
                 except Exception as error:
