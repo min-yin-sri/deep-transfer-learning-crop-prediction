@@ -98,13 +98,8 @@ def main():
     num_labels = len(labels_df)
     y_pred = net.graph(x_train, y_train, is_training, num_labels)
 
-    # Define the Classification Accuracy
-    with tf.name_scope('accuracy'):
-        correct_prediction = tf.equal(tf.argmax(y_pred, 1), tf.argmax(y_train, 1))
-        accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-
     # Define the loss function and optimizer
-    cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(labels=y_train, logits=y_pred))
+    cross_entropy = tf.reduce_mean(tf.losses.mean_squared_error(labels=y_train, logits=y_pred))
     optimizer = tf.train.AdamOptimizer(args.learning_rate)
     update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
     with tf.control_dependencies(update_ops):

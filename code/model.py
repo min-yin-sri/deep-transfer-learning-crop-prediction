@@ -9,6 +9,6 @@ class PovertyMapper(CNN):
         out_1 = CNN._fcl(self, x_train, [3000, 1000], [1000], 'fc_1', classification_layer=False)
         out_2 = CNN._fcl(self, out_1, [1000, 500], [500], 'fc_2', classification_layer=False)
         out_3 = CNN._fcl(self, out_2, [500, 250], [250], 'fc_3', classification_layer=False)
-        y_pred = CNN._fcl(self, out_3, [250, 1], [1], 'fc_4', classification_layer=True)
+        y_pred = CNN._regression_layer(self, out_3, [250, 1], [1], 'fc_4', classification_layer=True)
 
         return y_pred
