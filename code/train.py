@@ -123,7 +123,7 @@ def main():
                 try:
                     # Update the batch reader to read 1D numpy arrays
                     ### ------ This Batch Reader Needs to Return Bx3000 D tensor and corresponding labels Bx1 ------ #####
-                    pdb./set_trace()
+                    pdb.set_trace()
                     train_imgs, train_labels = prepare_dataset.batch_reader(train_filenames, iteration_number, args.train_dir, labels_df, args.batch_size)
                     summary, _, loss_value = sess.run([merged, train_op, cross_entropy], feed_dict={is_training : True, x_train: train_imgs, y_train: train_labels})
                     train_counter += 1
