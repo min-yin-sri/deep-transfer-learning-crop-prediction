@@ -18,4 +18,4 @@ def batch_reader(img_names, index, read_dir, labels_df, batch_size=64):
         img_tensor.append(np.load(feature_file_name))
         ground_truth.append(labels_df[counter])
 
-    return img_tensor, np.array(ground_truth)
+    return np.array(img_tensor), np.array(ground_truth)
