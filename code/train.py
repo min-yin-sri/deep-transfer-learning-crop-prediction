@@ -118,7 +118,6 @@ def main():
                 try:
                     # Update the batch reader to read 1D numpy arrays
                     ### ------ This Batch Reader Needs to Return Bx3000 D tensor and corresponding labels Bx1 ------ #####
-                    #pdb.set_trace()
                     train_imgs, train_labels = prepare_dataset.batch_reader(train_filenames, iteration_number, args.train_dir, labels_df, args.batch_size)
                     _, loss_value = sess.run([train_op, cross_entropy], feed_dict={is_training : True, x_train: np.reshape(train_imgs, [32, 3000]), y_train: np.reshape(train_labels, [32,1])})
                     train_counter += 1
@@ -128,6 +127,7 @@ def main():
                     print("Training Loss at iteration {} {} : {}".format(epoch_number, epoch_id, loss_value))
 
             # Test the model on validation dataset at the end of every epoch
+            pdb.set_trace()
             overall_loss_value, counter = 0., 0.
             for iteration_number in range(0, len(val_filenames), args.batch_size):
                 try:
