@@ -28,6 +28,7 @@ import csv
 
 from model import PovertyMapper
 
+PATH = "/root/bucket3/textual_global_feature_vectors"
 TRAINING_PATH = "/root/bucket3/textual_global_feature_vectors/training_sets"
 ETHIOPIA_GROUD_TRUTH_FILENAME = "Ethiopia_Grouth_Truth.csv"
 
