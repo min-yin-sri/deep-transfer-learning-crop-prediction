@@ -63,7 +63,7 @@ def main():
     args = get_parser().parse_args()
 
     # Read the filenames
-    ground_truth_input_file = os.path.join( args.training_data_dir, ETHIOPIA_GROUD_TRUTH_FILENAME )
+    ground_truth_input_file = os.path.join( PATH, ETHIOPIA_GROUD_TRUTH_FILENAME )
     logging.info("Ground truth file is at %s" % ground_truth_input_file)
     with open(ground_truth_input_file, 'rb') as gf:
         greader = csv.reader(gf)
