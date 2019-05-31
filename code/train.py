@@ -132,7 +132,7 @@ def main():
             for iteration_number in range(0, len(val_filenames), args.batch_size):
                 try:
                     val_imgs, val_labels = prepare_dataset.batch_reader(val_filenames, iteration_number, args.test_dir, labels_df, args.batch_size)
-                    loss_value = sess.run([cross_entropy], feed_dict={is_training : False, x_train: np.reshape(val_imgs, [32, 3000]), y_train: np.reshape(val_labels, [32,1])})
+                    loss_value = sess.run(cross_entropy, feed_dict={is_training : False, x_train: np.reshape(val_imgs, [32, 3000]), y_train: np.reshape(val_labels, [32,1])})
                     overall_loss_value += loss_value
                     counter += 1.
                 except Exception as error:
