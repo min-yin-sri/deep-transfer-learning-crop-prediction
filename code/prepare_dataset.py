@@ -11,7 +11,7 @@ def batch_reader(img_names, index, read_dir, labels_df, batch_size=64):
     """
     img_tensor = []
     ground_truth = []
-    indexes = img_names.index[index:index+batch_size]
+    indexes = img_names[index:index+batch_size]
     for index in enumerate(indexes):
         feature_name = img_names[index] + ".npy"
         feature_file_name = os.path.join( read_dir, feature_name )
