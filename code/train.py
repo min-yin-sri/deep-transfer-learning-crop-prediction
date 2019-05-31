@@ -99,7 +99,7 @@ def main():
     y_pred = net.graph(x_train, y_train, is_training, num_labels)
 
     # Define the loss function and optimizer
-    cross_entropy = tf.reduce_mean(tf.losses.mean_squared_error(labels=y_train, logits=y_pred))
+    cross_entropy = tf.reduce_mean(tf.losses.mean_squared_error(y_train, y_pred))
     optimizer = tf.train.AdamOptimizer(args.learning_rate)
     update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
     with tf.control_dependencies(update_ops):
