@@ -25,6 +25,7 @@ from tqdm import tqdm
 from model import PovertyMapper
 
 TRAINING_PATH = "/root/bucket3/textual_global_feature_vectors/training_sets"
+ETHIOPIA_GROUD_TRUTH_FILENAME = "Ethiopia_Grouth_Truth.csv"
 
 logging.basicConfig(filename='train.log',level=logging.DEBUG)
 
@@ -39,7 +40,7 @@ def get_parser():
                          help='Learning rate')
     aparser.add_argument('--test_frequency', type=int, default=10,
                          help='After every provided number of iterations the model will be test')
-    aparser.add_argument('--train_dir', type=str,
+    aparser.add_argument('--train_dir', type=str, default=TRAINING_PATH,
                          help='Provide the training directory to the text file with file names and labels in it')
     aparser.add_argument('--test_dir', type=str,
                      help='Provide the test directory to the text file with file names and labels in it')
@@ -57,22 +58,29 @@ def main():
     args = get_parser().parse_args()
 
     # Read the filenames
-    ground_truth_input_file = os.path.join( args.data_dir, args.ground_truth_file )
+    ground_truth_input_file = os.path.join( args.training_data_dir, ETHIOPIA_GROUD_TRUTH_FILENAME )
     logging.info("Ground truth file is at %s" % ground_truth_input_file)
+    with open(ground_truth_input_file, 'rb') as gf:
+        greader = csv.reader(gf)
+        ground_truth_list = list(greader)
+    logging.info("ground truth csv file has %d entries" % len(ground_truth_list))
+    logging.info("The first line of ground truth csv file: %s %s" % (ground_truth_list[0][7], ground_truth_list[0][12]) )
+    logging.info("The first line of ground truth csv file: %s %s" % (ground_truth_list[1][7], ground_truth_list[1][12]) )
 
-  with open(ground_truth_input_file, 'rb') as gf:
-    greader = csv.reader(gf)
-    ground_truth_list = list(greader)
+    train_filenames = []
+    labels_df = []
+    ground_truth_index = 0
+    for ground_truth_entry in ground_truth_list:
+        if ground_truth_index == 0:
+            ground_truth_index = ground_truth_index + 1
+            continue
+        train_filenames.append(ground_truth_entry[7])
+        labels_df.append(ground_truth_entry[12])
 
-  logging.info("ground truth csv file has %d entries" % len(ground_truth_list))
-  logging.info("The first line of ground truth csv file: %s %s %s" % (ground_truth_list[0][7], ground_truth_list[0][8], ground_truth_list[0][9]) )
-  logging.info("The first line of ground truth csv file: %s %s %s" % (ground_truth_list[1][7], ground_truth_list[1][8], ground_truth_list[1][9]) )
-
-    train_filenames = pd.read_csv(args.training_data_dir)
-    labels_df = pd.read_csv(args.labels_dir)
-    ratio_validation = int(len(train_filenames) / 5)
-    val_filenames = train_filenames[:ratio_validation]
-    train_filenames = train_filenames[ratio_validation:]
+    #ratio_validation = int(len(train_filenames) / 5)
+    #val_filenames = train_filenames[:ratio_validation]
+    #train_filenames = train_filenames[ratio_validation:]
+    val_filenames = train_filenames
 
     # Build the Graph
     net = PovertyMapper()
@@ -110,7 +118,7 @@ def main():
                 try:
                     # Update the batch reader to read 1D numpy arrays
                     ### ------ This Batch Reader Needs to Return Bx3000 D tensor and corresponding labels Bx1 ------ #####
-                    train_imgs, train_labels = prepare_dataset.batch_reader(train_filenames, iteration_number, args.train_dir, labels_df)
+                    train_imgs, train_labels = prepare_dataset.batch_reader(train_filenames, iteration_number, args.train_dir, labels_df, args.batch_size)
                     summary, _, loss_value = sess.run([merged, train_op, cross_entropy], feed_dict={is_training : True, x_train: train_imgs, y_train: train_labels})
                     train_counter += 1
                 except Exception as error:
