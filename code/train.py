@@ -123,6 +123,7 @@ def main():
                     train_counter += 1
                 except Exception as error:
                     continue
+                pdb.set_trace()
                 if epoch_id % 50 == 0:
                     print("Training Loss at iteration {} {} : {}".format(epoch_number, epoch_id, loss_value))
 
