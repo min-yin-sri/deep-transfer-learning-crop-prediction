@@ -47,7 +47,7 @@ def get_parser():
                          help='After every provided number of iterations the model will be test')
     aparser.add_argument('--train_dir', type=str, default=TRAINING_PATH,
                          help='Provide the training directory to the text file with file names and labels in it')
-    aparser.add_argument('--test_dir', type=str,
+    aparser.add_argument('--test_dir', type=str, default=TRAINING_PATH,
                      help='Provide the test directory to the text file with file names and labels in it')
     aparser.add_argument('--ckpt_dir', type=str,
                      help='Provide the checkpoint directory where the network parameters will be stored')
