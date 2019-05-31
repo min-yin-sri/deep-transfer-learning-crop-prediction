@@ -17,12 +17,14 @@ import tensorflow as tf
 import numpy as np
 import argparse
 import prepare_dataset
-import pandas as pd
-import pdb
+#import pandas as pd
+#import pdb
 import logging
 from tqdm import tqdm
 
 from model import PovertyMapper
+
+TRAINING_PATH = "/root/bucket3/textual_global_feature_vectors/training_sets"
 
 logging.basicConfig(filename='train.log',level=logging.DEBUG)
 
@@ -43,7 +45,7 @@ def get_parser():
                      help='Provide the test directory to the text file with file names and labels in it')
     aparser.add_argument('--ckpt_dir', type=str,
                      help='Provide the checkpoint directory where the network parameters will be stored')
-    aparser.add_argument('--training_data_dir', type=str,
+    aparser.add_argument('--training_data_dir', type=str, default=TRAINING_PATH,
                      help='Provide the directory where the image names and labels are stored')
     aparser.add_argument('--labels_dir', type=str,
                      help='Provide the directory where the mapping function is stored for the labels')
@@ -55,6 +57,17 @@ def main():
     args = get_parser().parse_args()
 
     # Read the filenames
+    ground_truth_input_file = os.path.join( args.data_dir, args.ground_truth_file )
+    logging.info("Ground truth file is at %s" % ground_truth_input_file)
+
+  with open(ground_truth_input_file, 'rb') as gf:
+    greader = csv.reader(gf)
+    ground_truth_list = list(greader)
+
+  logging.info("ground truth csv file has %d entries" % len(ground_truth_list))
+  logging.info("The first line of ground truth csv file: %s %s %s" % (ground_truth_list[0][7], ground_truth_list[0][8], ground_truth_list[0][9]) )
+  logging.info("The first line of ground truth csv file: %s %s %s" % (ground_truth_list[1][7], ground_truth_list[1][8], ground_truth_list[1][9]) )
+
     train_filenames = pd.read_csv(args.training_data_dir)
     labels_df = pd.read_csv(args.labels_dir)
     ratio_validation = int(len(train_filenames) / 5)

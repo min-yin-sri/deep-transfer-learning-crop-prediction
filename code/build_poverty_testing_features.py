@@ -57,7 +57,7 @@ if __name__ == "__main__":
   parser = argparse.ArgumentParser( description = desc )
   parser.add_argument( "number", action = "count", default = 9, help = "Number of closest articles to be found." )
   parser.add_argument( "--data_dir", type = str, default = PATH, help = "Directory that holds all the necessary data files" )
-  parser.add_argument( "--coordinate_file", type = str, default = SOUTH_SUDAN_COODINATES_FILENAME, help = "Coordinates csv file name" )
+  parser.add_argument( "--coordinate_file", type = str, default = SOUTH_SUDAN_CSV_FILENAME, help = "Coordinates csv file name" )
   parser.add_argument( "--ground_truth_file", type = str, default = SOUTH_SUDAN_GROUTH_TRUTH_FILENAME, help = "Ground truth file name" )
   parser.add_argument( "--output_dir", "-o", type = str, default = OUTPUT_PATH, help = "Output directory of created training feature files" )
   parser.add_argument( "--verbosity", "-v", action="count", default = 1, help = "Verbosity level" )
