@@ -123,12 +123,11 @@ def main():
                     train_counter += 1
                 except Exception as error:
                     continue
-                pdb.set_trace()
                 if epoch_id % 50 == 0:
                     print("Training Loss at iteration {} {} : {}".format(epoch_number, epoch_id, loss_value))
 
             # Test the model on validation dataset at the end of every epoch
-            #pdb.set_trace()
+            pdb.set_trace()
             overall_loss_value, counter = 0., 0.
             for iteration_number in range(0, len(val_filenames), args.batch_size):
                 try:
