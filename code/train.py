@@ -142,9 +142,9 @@ def main():
                     print(error)
                     continue
             print("Validation Loss at iteration {} : {}".format(epoch_number, overall_loss_value / counter))
+        # Save the model
+        save_path = saver.save(sess, SAVE_PATH)
 
-    # Save the model to disk.
-    save_path = saver.save(sess, SAVE_PATH)
     print("Model saved in path: %s" % save_path)
 
 if __name__ == '__main__':
